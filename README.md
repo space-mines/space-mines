@@ -1,17 +1,15 @@
-# gradle-getting-started
+# Space Mines
 
-A barebones Gradle app, which can easily be deployed to Heroku.
-
-This application support the [Getting Started with Gradle on Heroku](https://devcenter.heroku.com/articles/getting-started-with-gradle-on-heroku) article - check it out.
+Full stack Gradle app that can be deployed to Heroku
 
 ## Running Locally
 
 Make sure you have Java installed.  Also, install the [Heroku Toolbelt](https://toolbelt.heroku.com/).
 
 ```sh
-$ git clone https://github.com/heroku/gradle-getting-started.git
-$ cd gradle-getting-started
-$ ./gradlew stage
+$ git clone https://github.com/space-mines/space-mines.git
+$ cd space-mines
+$ ./gradlew build
 $ heroku local web
 ```
 
@@ -27,7 +25,7 @@ DATABASE_URL=postgres://localhost:5432/gradle_database_name
 
 ```sh
 $ heroku create
-$ git push heroku master
+$ git push heroku main
 $ heroku open
 ```
 
