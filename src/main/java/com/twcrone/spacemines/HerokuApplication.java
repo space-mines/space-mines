@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.heroku;
+package com.twcrone.spacemines;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

@@ -1,1 +1,1 @@
-web: java -jar build/libs/gradle-getting-started-1.0.jar
+web: java -jar build/libs/space-mines-1.0.jar
