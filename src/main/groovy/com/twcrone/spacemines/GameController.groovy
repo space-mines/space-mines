@@ -28,7 +28,7 @@ class GameController {
             }
         }
         else {
-            game = gameService.getCurrent()
+            game = gameService.reset()
         }
         def json = jsonGenerator.toJson(game)
         json
