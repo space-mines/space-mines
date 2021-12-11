@@ -1,6 +1,7 @@
 package com.twcrone.spacemines
 
 class Game {
+
     List<Sector> sectors = new ArrayList<>()
     List<Integer> mines = new ArrayList<>()
 
@@ -18,7 +19,8 @@ class Game {
         for(x in (0..size)) {
             for(y in (0..size)) {
                 for(z in (0..size)) {
-                    game.sectors << new Sector(id: ++id, x: x, y: y, z: z)
+                    game.sectors[id] = new Sector(id: id, x: x, y: y, z: z)
+                    id++
                 }
             }
         }
@@ -31,5 +33,11 @@ class Game {
             game.mines << i
         }
         game
+    }
+
+    Game reveal(int sectorId) {
+        def sector = sectors[sectorId]
+        sector.radiation = 0
+        return this
     }
 }
