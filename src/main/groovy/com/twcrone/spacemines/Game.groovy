@@ -39,7 +39,7 @@ class Game {
     Game reveal(int sectorId) {
         def sector = sectors[sectorId]
         sector.radiation = 0
-        for(x in (sector.x-1..sector.x+2)) {
+        for(x in (sector.x-1..sector.x+1)) {
             for(y in (sector.y-1..sector.y+1)) {
                 for(z in (sector.z-1..sector.z+1)) {
                    sector.radiation += radiationFrom(x, y, z)
@@ -48,6 +48,7 @@ class Game {
         }
         return this
     }
+
     Game putMineAt(int x, int y, int z) {
         int sectorId = getSectorIdFor(x, y, z)
         this.mines << sectorId

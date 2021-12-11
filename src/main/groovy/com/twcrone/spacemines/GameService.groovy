@@ -12,11 +12,7 @@ class GameService {
     }
 
     Game revealSector(int sectorId) {
-        def sector = findById(sectorId)
-        if(sector) {
-            sector.radiation++
-        }
-        instance
+        instance.reveal(sectorId)
     }
 
     Game markSector(int sectorId) {
