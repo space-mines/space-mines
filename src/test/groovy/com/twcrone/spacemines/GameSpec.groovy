@@ -6,7 +6,8 @@ class GameSpec extends Specification {
 
     def "reveal only sector and there are no mines"() {
         given:
-        def game = Game.generate(size, mineCount)
+        def game = Game.generate(size, 0)
+        game.mines = mines
 
         when:
         game.reveal(0)
@@ -15,8 +16,8 @@ class GameSpec extends Specification {
         game.sectors[0].radiation == expectedRadiation
 
         where:
-        size    |   mineCount   ||  expectedRadiation
-        1       |   0           ||  0
+        size    |   mines   ||  expectedRadiation
+        1       |   []      ||  0
     }
 
 
