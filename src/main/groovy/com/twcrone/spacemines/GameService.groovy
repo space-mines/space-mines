@@ -8,7 +8,7 @@ class GameService {
     static Game instance = Game.generate(DEFAULT_SIZE, 1)
 
     Game reset() {
-        instance.reset()
+        instance = Game.generate(DEFAULT_SIZE, 1)
     }
 
     Game revealSector(int sectorId) {

@@ -33,6 +33,7 @@ class Game {
             }
             game.mines << i
         }
+        println("Mines=${game.mines}")
         game
     }
 

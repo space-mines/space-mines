@@ -19,7 +19,7 @@ class GameController {
     String getGame(@RequestParam(required = false) Integer sectorId,
                    @RequestParam(required = false) Boolean mark) {
         def game
-        if(sectorId) {
+        if(sectorId != null) {
             if(mark) {
                 game = gameService.markSector(sectorId)
             }
