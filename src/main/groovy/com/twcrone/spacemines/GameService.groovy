@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service
 @Service
 class GameService {
     static final int DEFAULT_SIZE = 4
-    static Game instance = Game.generate(DEFAULT_SIZE)
+    static Game instance = Game.generate(DEFAULT_SIZE, 1)
 
     Game reset() {
         instance.reset()
