@@ -18,6 +18,7 @@ class GameSpec extends Specification {
         where:
         size    |   mines   ||  expectedRadiation
         1       |   []      ||  0
+        2       |   [1]     ||  1
     }
 
 
