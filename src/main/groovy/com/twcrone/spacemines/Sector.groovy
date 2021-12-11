@@ -1,6 +1,7 @@
 package com.twcrone.spacemines
 
 class Sector {
+    Integer id
     Integer x
     Integer y
     Integer z

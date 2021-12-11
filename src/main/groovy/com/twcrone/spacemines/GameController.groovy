@@ -16,17 +16,15 @@ class GameController {
     GameService gameService
 
     @GetMapping("/game")
-    String getGame(@RequestParam(required = false) Integer x,
-                   @RequestParam(required = false) Integer y,
-                   @RequestParam(required = false) Integer z,
+    String getGame(@RequestParam(required = false) Integer sectorId,
                    @RequestParam(required = false) Boolean mark) {
         def game
-        if(x && y && z) {
+        if(sectorId) {
             if(mark) {
-                game = gameService.markSector(x, y, z)
+                game = gameService.markSector(sectorId)
             }
             else {
-                game = gameService.revealSector(x, y, z)
+                game = gameService.revealSector(sectorId)
             }
         }
         else {

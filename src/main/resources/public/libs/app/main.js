@@ -112,7 +112,7 @@ function markPod(podId) {
             updateMinefield(gameData.sectors);
         }
     };
-    xhttp.open("GET", "/game", true);
+    xhttp.open("GET", "/game?mark=true&sectorId=" + podId, true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send();
 }
@@ -125,7 +125,7 @@ function revealPod(podId) {
             updateMinefield(gameData.sectors);
         }
     };
-    xhttp.open("GET", "/game", true);
+    xhttp.open("GET", "/game?sectorId=" + podId, true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send();
 }
