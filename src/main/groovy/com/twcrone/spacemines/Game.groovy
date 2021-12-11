@@ -63,6 +63,6 @@ class Game {
         def sector = this.sectors.find {
             it.x == x && it.y == y && it.z == z
         }
-        sector?.id ?: -1
+        sector ? sector.id : -1
     }
 }
