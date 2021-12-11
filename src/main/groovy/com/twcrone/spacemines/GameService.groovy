@@ -20,7 +20,7 @@ class GameService {
     }
 
     Game getCurrent() {
-        instance
+        instance.reset()
     }
 
     Game revealSector(int sectorId) {
