@@ -48,13 +48,18 @@ class Game {
         }
         return this
     }
+    Game putMineAt(int x, int y, int z) {
+        int sectorId = getSectorIdFor(x, y, z)
+        this.mines << sectorId
+        this
+    }
 
-    private int radiationFrom(int x, int y, int z) {
+    int radiationFrom(int x, int y, int z) {
         int sectorId = getSectorIdFor(x, y, z)
         mines.contains(sectorId) ? 1 : 0
     }
 
-    private int getSectorIdFor(int x, int y, int z) {
+    int getSectorIdFor(int x, int y, int z) {
         def sector = this.sectors.find {
             it.x == x && it.y == y && it.z == z
         }
