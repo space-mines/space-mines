@@ -35,12 +35,12 @@ Pod.dataToString = function(pod) {
         ",radiation=" + pod.data.radiation + ",flagged=" + pod.data.flagged + "]";
 };
 
-Pod.createMinefield = function(podData) {
-    var podMap = [];
-    var minefield = {pods: podMap, gameOver: false};
-
-    for(var i = 0; i < podData.length; ++i) {
-        var pod = podData[i];
+Pod.createMinefield = function(sectors) {
+    let podMap = [];
+    let minefield = {pods: podMap, gameOver: false};
+    console.log(sectors);
+    for(var i = 0; i < sectors.length; ++i) {
+        var pod = sectors[i];
         var podKey = Pod.getKey(pod.x, pod.y, pod.z);
         podMap[podKey] = Pod.create(pod);
     }

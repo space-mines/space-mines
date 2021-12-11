@@ -65,7 +65,7 @@ function renderScene() {
 }
 
 function addMinefieldTo(scene) {
-    minefield = Pod.createMinefield(gameData.pods);
+    minefield = Pod.createMinefield(gameData.sectors);
     for (var key in minefield.pods) {
         var mesh = minefield.pods[key].mesh;
         scene.add(mesh);
@@ -99,7 +99,7 @@ function getGameData(playerId) {
             startGame();
         }
     };
-    xhttp.open("GET", "http://space-mines-api.herokuapp.com/player/" + playerId + "/game", true);
+    xhttp.open("GET", "/game", true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send();
 }
@@ -112,7 +112,7 @@ function markPod(podId) {
             updateMinefield(gameData.pods);
         }
     };
-    xhttp.open("PUT", "http://space-mines-api.herokuapp.com/game/" + gameId + "/pod/" + podId, true);
+    xhttp.open("GET", "/game", true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send();
 }
@@ -125,7 +125,7 @@ function revealPod(podId) {
             updateMinefield(gameData.pods);
         }
     };
-    xhttp.open("PATCH", "http://space-mines-api.herokuapp.com/game/" + gameId + "/pod/" + podId, true);
+    xhttp.open("GET", "/game", true);
     xhttp.setRequestHeader("Content-type", "application/json");
     xhttp.send();
 }

@@ -4,6 +4,6 @@ class Sector {
     Integer x
     Integer y
     Integer z
-    Integer radiation
-    Boolean flagged
+    Integer radiation = -1
+    Boolean flagged = false
 }
