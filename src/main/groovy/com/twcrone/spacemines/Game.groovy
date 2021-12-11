@@ -1,11 +1,12 @@
 package com.twcrone.spacemines
 
 class Game {
-
+    GameState state = GameState.PLAYING
     List<Sector> sectors = new ArrayList<>()
     List<Integer> mines = new ArrayList<>()
 
     Game reset() {
+        state = GameState.PLAYING
         sectors.each {
             it.flagged = false
             it.radiation = -1
@@ -16,9 +17,9 @@ class Game {
     static Game generate(int size, int mineCount) {
         int id = 0
         def game = new Game()
-        for(x in (0..size)) {
-            for(y in (0..size)) {
-                for(z in (0..size)) {
+        for(x in (0..size-1)) {
+            for(y in (0..size-1)) {
+                for(z in (0..size-1)) {
                     game.sectors[id] = new Sector(id: id, x: x, y: y, z: z)
                     id++
                 }
