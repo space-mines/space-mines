@@ -109,7 +109,7 @@ function markPod(podId) {
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             gameData = JSON.parse(this.responseText);
-            updateMinefield(gameData.pods);
+            updateMinefield(gameData.sectors);
         }
     };
     xhttp.open("GET", "/game", true);
@@ -122,7 +122,7 @@ function revealPod(podId) {
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             gameData = JSON.parse(this.responseText);
-            updateMinefield(gameData.pods);
+            updateMinefield(gameData.sectors);
         }
     };
     xhttp.open("GET", "/game", true);
