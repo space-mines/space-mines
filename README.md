@@ -15,6 +15,60 @@ $ heroku local web
 
 Your app should now be running on [localhost:5000](http://localhost:5000/).
 
+### API
+
+It utilizes a very GETful API with JSON formatted information on the game.
+
+#### JSON body
+```json
+{
+  "state": "PLAY",
+  "size": 4,
+  "sectors": [
+    {
+      "id": 0,
+      "marked": false,
+      "radiation": -1,
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    {
+      "id": 63,
+      "marked": false,
+      "radiation": -1,
+      "x": 3,
+      "y": 3,
+      "z": 3
+    }
+  ]
+}
+```
+
+#### Endpoints
+| method | path                      | description                                            |
+|--------|---------------------------|--------------------------------------------------------|
+| GET    | `/game`                   | returns a new game                                     |
+| GET    | `/game/reveal?sectorId=2` | returns game data after revealing sector with `id=2`   | |
+| GET    | `/game/mark?sectorId=3`   | returns game data after marking sector with `id=3`     |
+
+#### Game state
+
+| value  | description                     |
+|--------|---------------------------------|
+| `PLAY` | active game                     |
+| `WIN`  | current game has ended with win |
+| `LOSE` | current game has ended with loss|  
+
+#### Radiation
+| value | adjacent mines   |
+|-------|------------------|
+| `-1`  | Unknown          |
+| `0`   | None             |
+| `1`   | # mines adjacent |
+| `25`  | Mine             |
+
+
 If you're going to use a database, ensure you have a local `.env` file that reads something like this:
 
 ```
