@@ -54,22 +54,34 @@ It utilizes a very GETful API with JSON formatted information on the game.
 
 #### Game state
 
-| value  | description                     |
-|--------|---------------------------------|
-| `PLAY` | active game                     |
-| `WIN`  | current game has ended with win |
-| `LOSE` | current game has ended with loss|  
+| value  | description                      |
+|--------|----------------------------------|
+| `PLAY` | active game                      |
+| `WIN`  | current game has ended with win  |
+| `LOSE` | current game has ended with loss |  
 
 #### Radiation
-| value | adjacent mines   |
-|-------|------------------|
-| `-1`  | Unknown          |
-| `0`   | None             |
-| `1`   | # mines adjacent |
-| `25`  | Mine             |
+| value   | description                |
+|---------|----------------------------|
+| `-1`    | Unknown                    |
+| `0`     | No mines are adjacent      |
+| `1..24` | 1 to 24 mines are adjacent |
+| `25`    | Mine in this sector        |
 
+#### Sector colors
+| radiation | color  |
+|-----------|--------|
+| `-1`      | gray   |
+| `0`       | none   |
+| `1`       | blue   |
+| `2`       | green  |
+| `3`       | yellow |
+| `4`       | orange |
+| `5`       | red    |
 
-If you're going to use a database, ensure you have a local `.env` file that reads something like this:
+## Database NOT required yet
+
+When we use a database, ensure you have a local `.env` file that reads something like this:
 
 ```
 DATABASE_URL=postgres://localhost:5432/gradle_database_name
