@@ -1,16 +1,22 @@
 package com.twcrone.spacemines
 
 class Game {
-    GameState state = GameState.PLAYING
+    GameState state = GameState.PLAY
     List<Sector> sectors = new ArrayList<>()
     List<Integer> mines = new ArrayList<>()
 
     Game reset() {
-        state = GameState.PLAYING
+        state = GameState.PLAY
         sectors.each {
             it.flagged = false
             it.radiation = -1
         }
+        this
+    }
+
+    Game over() {
+        this.sectors = Collections.emptyList()
+        this.state = GameState.LOSE
         this
     }
 
@@ -37,6 +43,9 @@ class Game {
     }
 
     Game reveal(int sectorId) {
+        if(mines.contains(sectorId)) {
+            return this.over()
+        }
         def sector = sectors[sectorId]
         sector.radiation = 0
         for(x in (sector.x-1..sector.x+1)) {

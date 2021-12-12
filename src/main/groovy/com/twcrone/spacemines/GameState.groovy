@@ -1,7 +1,7 @@
 package com.twcrone.spacemines
 
 enum GameState {
-    PLAYING,
+    PLAY,
     WIN,
     LOSE
 }

@@ -15,7 +15,7 @@ class GameSpec extends Specification {
 
         then:
         game.sectors[sectorId].radiation == expectedRadiation
-        game.state == GameState.PLAYING
+        game.state == GameState.PLAY
 
         where:
         sectorLocation  |   size    |   mines                               ||  expectedRadiation
@@ -28,5 +28,23 @@ class GameSpec extends Specification {
         [1, 1, 1]       |   4       |   [[0, 1, 1], [3, 3, 3], [3, 1, 1]]   ||  1
     }
 
+    def "reveal sector that is a mine, should end the game"() {
+        given:
+        def game = Game.generate(size, 0)
+        mines.each { game.putMineAt(it[0], it[1], it[2]) }
 
+        when:
+        def sectorId = game.getSectorIdFor(sectorLocation[0], sectorLocation[1], sectorLocation[2])
+        game.reveal(sectorId)
+
+        then:
+        game.sectors.isEmpty()
+        game.state == GameState.LOSE
+
+        where:
+        sectorLocation  |   size    |   mines
+        [0, 0, 0]       |   1       |   [[0, 0, 0]]
+        [0, 1, 0]       |   2       |   [[1, 0, 0], [0, 1, 0]]
+        [1, 1, 1]       |   3       |   [[1, 0, 0], [1, 1, 1], [0, 1, 1]]
+    }
 }
