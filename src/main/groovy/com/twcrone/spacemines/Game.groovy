@@ -77,6 +77,9 @@ class Game {
     }
 
     Game mark(int sectorId) {
+        if(!validCoordinate(sectorId)) {
+            throw new IllegalArgumentException("$sectorId is not a valid sector to mark")
+        }
         def sector = sectors[sectorId]
         if(sector.radiation == -1) {
             sector.flagged = !sector.flagged

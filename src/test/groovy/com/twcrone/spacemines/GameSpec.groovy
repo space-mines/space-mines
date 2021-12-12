@@ -88,6 +88,18 @@ class GameSpec extends Specification {
         where:
         radiation   ||  expectedFlagged
         -1          ||  true
+        0           ||  false
+        1           ||  false
     }
 
+    def "mark a sector not present should fail"() {
+        given:
+        def game = Game.generate(1, 0)
+
+        when:
+        game.mark(100)
+
+        then:
+        thrown(IllegalArgumentException)
+    }
 }
