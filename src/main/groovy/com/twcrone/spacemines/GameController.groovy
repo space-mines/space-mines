@@ -17,8 +17,9 @@ class GameController {
     GameService gameService
 
     @GetMapping("/game")
-    String getGame() {
-        def game = gameService.reset()
+    String getGame(@RequestParam(required = false) Integer size,
+                   @RequestParam(required = false) Integer mineCount) {
+        def game = gameService.create(size, mineCount)
         def json = jsonGenerator.toJson(game)
         json
     }
