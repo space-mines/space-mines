@@ -19,9 +19,9 @@ class Game {
         }
         def random = new Random()
         mineCount.times {
-            int i = random.nextInt(size)
+            int i = random.nextInt(game.sectors.size() - 1)
             while(game.mines.contains(i)) {
-                i = random.nextInt(size)
+                i = random.nextInt(game.sectors.size() - 1)
             }
             game.mines << i
         }
@@ -47,6 +47,12 @@ class Game {
         }
         _reveal(sectorId)
         return this
+    }
+
+    private Game revealAll() {
+        mines.each { this.sectors[it].radiation = 25 }
+        this.sectors.each { if(it.radiation != 25) { it.radiation = 0 } }
+        this
     }
 
     private Game _reveal(int sectorId) {
@@ -86,7 +92,23 @@ class Game {
         if(sector.radiation == -1) {
             sector.marked = !sector.marked
         }
+        if(allMinesMarked() && noSectorsMarkedWithoutMine()) {
+            revealAll()
+            state = GameState.WIN
+        }
         this
+    }
+
+    private boolean allMinesMarked() {
+        mines.every {
+            sectors[it].marked
+        }
+    }
+
+    private boolean noSectorsMarkedWithoutMine() {
+        sectors.every {
+             it.marked ? mines.contains(it.id) : true
+        }
     }
 
     Game putMineAt(int x, int y, int z) {
