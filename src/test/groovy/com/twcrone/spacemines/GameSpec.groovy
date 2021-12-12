@@ -74,4 +74,20 @@ class GameSpec extends Specification {
         [1, 1, 1]       |   4       |   []
     }
 
+    def "mark a sector"() {
+        given:
+        def game = Game.generate(1, 0)
+        game.sectors[0].radiation = radiation
+
+        when:
+        game.mark(0)
+
+        then:
+        game.sectors[0].flagged == expectedFlagged
+
+        where:
+        radiation   ||  expectedFlagged
+        -1          ||  true
+    }
+
 }

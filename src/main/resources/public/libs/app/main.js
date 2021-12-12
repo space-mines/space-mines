@@ -1,15 +1,15 @@
-var scene;
-var camera;
-var flyControls;
-var renderer;
-var minefield;
-var mineMeshes = [];
-var difficulty;
-var mineCount;
-var dimension;
-var gameId;
-var gameData;
-var playerId;
+let scene;
+let camera;
+let flyControls;
+let renderer;
+let minefield;
+let mineMeshes = [];
+let difficulty;
+let mineCount;
+let dimension;
+let gameId;
+let gameData;
+let playerId;
 
 function get(name){
     if(name=(new RegExp('[?&]'+encodeURIComponent(name)+'=([^&]*)')).exec(location.search))
@@ -17,14 +17,14 @@ function get(name){
 }
 
 function createSpotlight() {
-    var spotlight = new THREE.SpotLight(0xffffff);
+    let spotlight = new THREE.SpotLight(0xffffff);
     spotlight.position.set(50, 50, 100);
     spotlight.castShadow = true;
     return spotlight;
 }
 
 function createCameraLookingAt(position) {
-    var camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 1000);
+    let camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 1000);
     camera.position.set(50, 50, 125);
     camera.lookAt(position);
 
@@ -40,7 +40,7 @@ function createCameraLookingAt(position) {
 }
 
 function createRenderer() {
-    var renderer = new THREE.WebGLRenderer();
+    let renderer = new THREE.WebGLRenderer();
     renderer.setClearColor(0x444444, 1.0);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMapEnabled = true;
@@ -48,10 +48,10 @@ function createRenderer() {
     return renderer;
 }
 
-var clock = new THREE.Clock();
+let clock = new THREE.Clock();
 
 function renderScene() {
-    var delta = clock.getDelta();
+    let delta = clock.getDelta();
     flyControls.update(delta);
 
     //scene.traverse(function(obj) {
@@ -66,18 +66,18 @@ function renderScene() {
 
 function addMinefieldTo(scene) {
     minefield = Pod.createMinefield(gameData.sectors);
-    for (var key in minefield.pods) {
-        var mesh = minefield.pods[key].mesh;
+    for (let key in minefield.pods) {
+        let mesh = minefield.pods[key].mesh;
         scene.add(mesh);
         mineMeshes.push(mesh);
     }
 }
 
 function updateMinefield(podData) {
-    for(var i = 0; i < podData.length; ++i) {
-        var data = podData[i];
-        var key = Pod.getKey(data.x, data.y, data.z);
-        var pod = minefield.pods[key];
+    for(let i = 0; i < podData.length; ++i) {
+        let data = podData[i];
+        let key = Pod.getKey(data.x, data.y, data.z);
+        let pod = minefield.pods[key];
         pod.data = data;
         Pod.update(pod);
     }
@@ -90,7 +90,7 @@ function init() {
 }
 
 function getGameData(playerId) {
-    var xhttp = new XMLHttpRequest();
+    let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             gameData = JSON.parse(this.responseText);
@@ -105,7 +105,7 @@ function getGameData(playerId) {
 }
 
 function markPod(podId) {
-    var xhttp = new XMLHttpRequest();
+    let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             gameData = JSON.parse(this.responseText);
@@ -118,7 +118,7 @@ function markPod(podId) {
 }
 
 function revealPod(podId) {
-    var xhttp = new XMLHttpRequest();
+    let xhttp = new XMLHttpRequest();
     xhttp.onreadystatechange = function() {
         if (this.readyState == 4 && this.status == 200) {
             gameData = JSON.parse(this.responseText);
@@ -137,8 +137,8 @@ function startGame() {
     camera = createCameraLookingAt(Pod.getCenter(minefield));
     renderer = createRenderer();
 
-    var spotlight = createSpotlight();
-    var ambientLight = new THREE.AmbientLight(0x505050);
+    let spotlight = createSpotlight();
+    let ambientLight = new THREE.AmbientLight(0x505050);
 
 
     scene.add(ambientLight);
@@ -154,7 +154,7 @@ function startGame() {
 }
 
 function onMouseDown(event) {
-    var vector = new THREE.Vector3();
+    let vector = new THREE.Vector3();
 
     vector.set(
         ( event.clientX / window.innerWidth ) * 2 - 1,
@@ -163,14 +163,14 @@ function onMouseDown(event) {
 
     vector.unproject(camera);
 
-    var raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
-    var intersects = raycaster.intersectObjects(mineMeshes);
-    var selected;
+    let raycaster = new THREE.Raycaster(camera.position, vector.sub(camera.position).normalize());
+    let intersects = raycaster.intersectObjects(mineMeshes);
+    let selected;
 
-    for(var i = 0; i < intersects.length; ++i) {
+    for(let i = 0; i < intersects.length; ++i) {
         selected = intersects[i].object;
         if(selected.visible) {
-            var pod = Pod.findByMesh(minefield, selected);
+            let pod = Pod.findByMesh(minefield, selected);
             if(event.ctrlKey || event.button != 0) {
                 markPod(pod.data.id);
             }

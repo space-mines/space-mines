@@ -6,21 +6,6 @@ class Game {
     List<Sector> sectors = new ArrayList<>()
     List<Integer> mines = new ArrayList<>()
 
-    Game reset() {
-        state = GameState.PLAY
-        sectors.each {
-            it.flagged = false
-            it.radiation = -1
-        }
-        this
-    }
-
-    Game over() {
-        this.sectors.each { it.radiation = 0 } // make them all disap
-        this.state = GameState.LOSE
-        this
-    }
-
     static Game generate(int size, int mineCount) {
         int id = 0
         def game = new Game()
@@ -42,6 +27,21 @@ class Game {
         }
         game.size = size
         game
+    }
+
+    Game reset() {
+        state = GameState.PLAY
+        sectors.each {
+            it.flagged = false
+            it.radiation = -1
+        }
+        this
+    }
+
+    Game over() {
+        this.sectors.each { it.radiation = 0 } // make them all disap
+        this.state = GameState.LOSE
+        this
     }
 
     Game reveal(int sectorId) {
@@ -76,8 +76,12 @@ class Game {
         return this
     }
 
-    boolean validCoordinate(int i) {
-        i > -1 && i < size
+    Game mark(int sectorId) {
+        def sector = sectors[sectorId]
+        if(sector.radiation == -1) {
+            sector.flagged = !sector.flagged
+        }
+        this
     }
 
     Game putMineAt(int x, int y, int z) {
@@ -96,5 +100,9 @@ class Game {
             it.x == x && it.y == y && it.z == z
         }
         sector ? sector.id : -1
+    }
+
+    private boolean validCoordinate(int i) {
+        i > -1 && i < size
     }
 }
