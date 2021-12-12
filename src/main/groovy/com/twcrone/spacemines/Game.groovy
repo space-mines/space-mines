@@ -29,15 +29,6 @@ class Game {
         game
     }
 
-    Game reset() {
-        state = GameState.PLAY
-        sectors.each {
-            it.flagged = false
-            it.radiation = -1
-        }
-        this
-    }
-
     Game over() {
         this.sectors.each { it.radiation = 0 } // make them all disap
         this.state = GameState.LOSE
