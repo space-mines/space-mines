@@ -17,20 +17,22 @@ class GameController {
     GameService gameService
 
     @GetMapping("/game")
-    String getGame(@RequestParam(required = false) Integer sectorId,
-                   @RequestParam(required = false) Boolean mark) {
-        def game
-        if(sectorId != null) {
-            if(mark) {
-                game = gameService.markSector(sectorId)
-            }
-            else {
-                game = gameService.revealSector(sectorId)
-            }
-        }
-        else {
-            game = gameService.reset()
-        }
+    String getGame() {
+        def game = gameService.reset()
+        def json = jsonGenerator.toJson(game)
+        json
+    }
+
+    @GetMapping("/game/reveal")
+    String reveal(@RequestParam Integer sectorId) {
+        def game = gameService.revealSector(sectorId)
+        def json = jsonGenerator.toJson(game)
+        json
+    }
+
+    @GetMapping("/game/mark")
+    String mark(@RequestParam Integer sectorId) {
+        def game = gameService.markSector(sectorId)
         def json = jsonGenerator.toJson(game)
         json
     }
