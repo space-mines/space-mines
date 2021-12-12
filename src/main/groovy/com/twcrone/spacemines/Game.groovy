@@ -48,6 +48,9 @@ class Game {
         if(!validSectorId(sectorId)) {
             throw new IllegalArgumentException("$sectorId is not a valid sector to reveal")
         }
+        if(this.sectors[sectorId].flagged) {
+            return this // noop
+        }
         if(mines.contains(sectorId)) {
             return this.over()
         }

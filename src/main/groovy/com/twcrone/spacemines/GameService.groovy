@@ -16,14 +16,6 @@ class GameService {
     }
 
     Game markSector(int sectorId) {
-        def sector = findById(sectorId)
-        if(sector) {
-            sector.flagged = !sector.flagged
-        }
-        instance
-    }
-
-    Sector findById(int sectorId) {
-        instance.sectors.find { it.id == sectorId }
+        instance.mark(sectorId)
     }
 }

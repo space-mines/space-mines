@@ -55,6 +55,20 @@ class GameSpec extends Specification {
         [1, 1, 1]       |   3       |   [[1, 0, 0], [1, 1, 1], [0, 1, 1]]
     }
 
+    def "reveal sector that marked should be noop"() {
+        given:
+        def game = Game.generate(1, 0)
+        game.mark(0)
+
+        when:
+        game.reveal(0)
+
+        then:
+        def sector = game.sectors[0]
+        sector.radiation == -1
+        game.state == GameState.PLAY
+    }
+
     def "reveal sector with no mines around it should 'cascade' to other surrounding sectors"() {
         given:
         def game = Game.generate(size, 0)
