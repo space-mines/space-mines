@@ -45,9 +45,17 @@ class Game {
     }
 
     Game reveal(int sectorId) {
+        if(!validSectorId(sectorId)) {
+            throw new IllegalArgumentException("$sectorId is not a valid sector to reveal")
+        }
         if(mines.contains(sectorId)) {
             return this.over()
         }
+        _reveal(sectorId)
+        return this
+    }
+
+    private Game _reveal(int sectorId) {
         def sector = sectors[sectorId]
         // already revealed, don't do it again
         if(sector.radiation != -1) {
@@ -57,7 +65,7 @@ class Game {
         for(x in (sector.x-1..sector.x+1)) {
             for(y in (sector.y-1..sector.y+1)) {
                 for(z in (sector.z-1..sector.z+1)) {
-                   sector.radiation += radiationFrom(x, y, z)
+                    sector.radiation += radiationFrom(x, y, z)
                 }
             }
         }
@@ -67,17 +75,17 @@ class Game {
                     for(z in (sector.z-1..sector.z+1)) {
                         if(validCoordinate(x) && validCoordinate(y) && validCoordinate(z)) {
                             int id = getSectorIdFor(x, y, z)
-                            reveal(id)
+                            _reveal(id)
                         }
                     }
                 }
             }
         }
-        return this
+        this
     }
 
     Game mark(int sectorId) {
-        if(!validCoordinate(sectorId)) {
+        if(!validSectorId(sectorId)) {
             throw new IllegalArgumentException("$sectorId is not a valid sector to mark")
         }
         def sector = sectors[sectorId]
@@ -107,5 +115,9 @@ class Game {
 
     private boolean validCoordinate(int i) {
         i > -1 && i < size
+    }
+
+    private boolean validSectorId(int i) {
+        i > -1 && i < sectors.size()
     }
 }

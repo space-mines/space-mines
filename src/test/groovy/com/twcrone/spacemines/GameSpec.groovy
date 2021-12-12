@@ -1,6 +1,7 @@
 package com.twcrone.spacemines
 
 import spock.lang.Specification
+import spock.lang.Unroll
 
 class GameSpec extends Specification {
 
@@ -76,14 +77,14 @@ class GameSpec extends Specification {
 
     def "mark a sector"() {
         given:
-        def game = Game.generate(1, 0)
-        game.sectors[0].radiation = radiation
+        def game = Game.generate(2, 0)
+        game.sectors[2].radiation = radiation
 
         when:
-        game.mark(0)
+        game.mark(2)
 
         then:
-        game.sectors[0].flagged == expectedFlagged
+        game.sectors[2].flagged == expectedFlagged
 
         where:
         radiation   ||  expectedFlagged
@@ -92,14 +93,18 @@ class GameSpec extends Specification {
         1           ||  false
     }
 
-    def "mark a sector not present should fail"() {
+    @Unroll
+    def "#operation a sector not present should fail"() {
         given:
         def game = Game.generate(1, 0)
 
         when:
-        game.mark(100)
+        game."$operation"(100)
 
         then:
         thrown(IllegalArgumentException)
+
+        where:
+        operation << ["mark", "reveal"]
     }
 }
