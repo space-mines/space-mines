@@ -1,4 +1,4 @@
-//{"id":104,"x":0,"y":0,"z":1,"radiation":-1,"flagged":false}
+//{"id":104,"x":0,"y":0,"z":1,"radiation":-1,"marked":false}
 
 Pod = {radius: 3, spacing: 10};
 
@@ -32,7 +32,7 @@ Pod.update = function(pod) {
 
 Pod.dataToString = function(pod) {
     return "Pod[id=" + pod.data.id + ",x=" + pod.data.x + ",y=" + pod.data.y + ",z=" + pod.data.z +
-        ",radiation=" + pod.data.radiation + ",flagged=" + pod.data.flagged + "]";
+        ",radiation=" + pod.data.radiation + ",marked=" + pod.data.marked + "]";
 };
 
 Pod.createMinefield = function(sectors) {
@@ -88,7 +88,7 @@ Pod.RED = 0xFF0000;
 Pod.MARKED = 0xFFFFFF;
 
 Pod.getColor = function(podData) {
-    if(podData.flagged) {
+    if(podData.marked) {
         return Pod.MARKED;
     }
     var radiation = podData.radiation;

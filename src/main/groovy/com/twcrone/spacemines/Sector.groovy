@@ -6,5 +6,5 @@ class Sector {
     Integer y
     Integer z
     Integer radiation = -1
-    Boolean flagged = false
+    Boolean marked = false
 }

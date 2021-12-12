@@ -80,7 +80,7 @@ class GameSpec extends Specification {
         then:
         def sector = game.sectors[0]
         sector.radiation == 0
-        !sector.flagged
+        !sector.marked
         game.state == GameState.PLAY
     }
 
@@ -113,10 +113,10 @@ class GameSpec extends Specification {
         game.mark(2)
 
         then:
-        game.sectors[2].flagged == expectedFlagged
+        game.sectors[2].marked == expectedmarked
 
         where:
-        radiation   ||  expectedFlagged
+        radiation   ||  expectedmarked
         -1          ||  true
         0           ||  false
         1           ||  false
