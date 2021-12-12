@@ -15,6 +15,7 @@ class GameSpec extends Specification {
 
         then:
         game.sectors[sectorId].radiation == expectedRadiation
+        game.state == GameState.PLAYING
 
         where:
         sectorLocation  |   size    |   mines                               ||  expectedRadiation
