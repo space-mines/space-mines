@@ -47,6 +47,10 @@ class Game {
             return this.over()
         }
         def sector = sectors[sectorId]
+        // already revealed, don't do it again
+        if(sector.radiation != -1) {
+            return this
+        }
         sector.radiation = 0
         for(x in (sector.x-1..sector.x+1)) {
             for(y in (sector.y-1..sector.y+1)) {
