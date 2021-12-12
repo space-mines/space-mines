@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController
 class GameController {
     JsonGenerator jsonGenerator = new JsonGenerator.Options()
             .excludeNulls()
+            .excludeFieldsByName("mines")
             .build()
 
     @Autowired
