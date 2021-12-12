@@ -1,6 +1,7 @@
 package com.twcrone.spacemines
 
 class Game {
+    Integer size
     GameState state = GameState.PLAY
     List<Sector> sectors = new ArrayList<>()
     List<Integer> mines = new ArrayList<>()
@@ -15,7 +16,7 @@ class Game {
     }
 
     Game over() {
-        this.sectors = Collections.emptyList()
+        this.sectors.each { it.radiation = 0 } // make them all disap
         this.state = GameState.LOSE
         this
     }
@@ -39,6 +40,7 @@ class Game {
             }
             game.mines << i
         }
+        game.size = size
         game
     }
 
@@ -59,7 +61,23 @@ class Game {
                 }
             }
         }
+        if(sector.radiation == 0) {
+            for(x in (sector.x-1..sector.x+1)) {
+                for(y in (sector.y-1..sector.y+1)) {
+                    for(z in (sector.z-1..sector.z+1)) {
+                        if(validCoordinate(x) && validCoordinate(y) && validCoordinate(z)) {
+                            int id = getSectorIdFor(x, y, z)
+                            reveal(id)
+                        }
+                    }
+                }
+            }
+        }
         return this
+    }
+
+    boolean validCoordinate(int i) {
+        i > -1 && i < size
     }
 
     Game putMineAt(int x, int y, int z) {
